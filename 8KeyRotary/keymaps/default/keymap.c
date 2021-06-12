@@ -38,7 +38,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     return true;
 }*/
 	void encoder_update_user(uint16_t index, bool clockwise) {
-		if(IS_LAYER_ON(_BASE)) {
+		switch(get_highest_layer(layer_state)) {
+			case _BASE:
+				if (clockwise) {
+					tap_code(KC_LCTL);
+					tap_code(KC_WH_U);
+				} else {
+					tap_code(KC_LCTL);
+					tap_code(KC_WH_D);
+				}
+			case _FN:
+				if (clockwise) {
+					tap_code(KC_LALT);
+					tap_code(KC_WH_U);
+				} else {
+					tap_code(KC_LALT);
+					tap_code(KC_WH_D);
+				}
+		}
+	}
+	
+			
+	
+	/*		if(IS_LAYER_ON(_BASE)) {
 			if (clockwise) {
 				tap_code(KC_LCTL);
 				tap_code(KC_WH_U);
@@ -55,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				tap_code(KC_WH_D);
 			}
 		}
-	}
+	}*/
 
 /*
 void encoder_update_user(uint16_t index, bool clockwise) {
