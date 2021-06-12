@@ -21,12 +21,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
 					KC_N,			KC_M,	 	C(KC_Z), 		C(S(KC_Z)),  
-        DF(_FN), 	C(S(KC_LBRC)),	C(KC_BSLS),	C(S(KC_RBRC)),	KC_SPC
+        DF(_FN), 	C(S(KC_LBRC)),	C(KC_BSLS),	C(S(KC_RBRC)),	RESET
     ),
 	/* FN */
 	
     [_FN] = LAYOUT(
-					KC_N,			KC_M,	 	C(KC_Z), 		C(S(KC_Z)),  
+					KC_Z,			KC_M,	 	C(KC_Z), 		C(S(KC_Z)),  
         DF(_BASE), 	C(S(KC_LBRC)),	C(KC_BSLS),	C(S(KC_RBRC)),	KC_SPC
     )
 };
@@ -37,8 +37,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     }
     return true;
 }*/
+	void encoder_update_user(uint16_t index, bool clockwise) {
+		if(IS_LAYER_ON(_BASE)) {
+			if (clockwise) {
+				tap_code(KC_LCTL);
+				tap_code(KC_WH_U);
+			} else {
+				tap_code(KC_LCTL);
+				tap_code(KC_WH_D);
+			}
+		} else if (IS_LAYER_ON(_FN)) {
+			if (clockwise) {
+				tap_code(KC_LALT);
+				tap_code(KC_WH_U);
+			} else {
+				tap_code(KC_LALT);
+				tap_code(KC_WH_D);
+			}
+		}
+	}
 
-
+/*
 void encoder_update_user(uint16_t index, bool clockwise) {
 	if(IS_LAYER_ON(_BASE)) {
 		if (clockwise) {
@@ -54,4 +73,4 @@ void encoder_update_user(uint16_t index, bool clockwise) {
 		}
 	}			
 }
-
+*/
